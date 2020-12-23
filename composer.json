@@ -1,0 +1,20 @@
+{
+  "name": "bakhodir/passport-scanner",
+  "description": "Component Retrieve data using python PassportEye",
+  "type": "library",
+  "keywords": ["mrz", "passport", "php", "td3"],
+  "require": {
+    "php": ">=7.0",
+    "ext-json": "*"
+  },
+  "authors": [
+    {
+      "name": "Yarashboyev Bakhodir",
+      "email": "boxo2016@gmail.com",
+      "homepage": "https://github.com/BoXoSh"
+    }
+  ],
+  "autoload": {
+    "psr-4": {"MRZScanner\\": "src/MRZScanner"}
+  }
+}
