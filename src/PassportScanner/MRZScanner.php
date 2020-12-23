@@ -1,7 +1,6 @@
 <?php
 
-
-namespace bakhodir\MRZScanner;
+namespace PassportScanner;
 
 
 class MRZScanner
@@ -9,26 +8,26 @@ class MRZScanner
     /**
      * @var string
      */
-    public $command = 'mrz';
+    protected $command = 'mrz';
     /**
      * @var string
      */
-    public $file = "";
+    protected $file = "";
 
     /**
      * @var bool
      */
-    public $isJson = false;
+    protected $isJson = false;
 
     /**
      * @var string|array
      */
-    public $result;
+    protected $result;
 
     /**
      * @var int
      */
-    public $validScore = 90;
+    protected $validScore = 90;
 
     /**
      * @param $validScore
@@ -118,10 +117,12 @@ class MRZScanner
     {
         $result = $this->getResult();
         if ($this->isJson) {
-            return array_key_exists('valid_score', $result) ? abs($result['valid_score']) : 0;
+            $this->setValidScore(array_key_exists('valid_score', $result) ? abs($result['valid_score']) : 0);
+            return $this->validScore;
         } else {
             preg_match('/^.*?valid_score\s+([0-9]+).*?$/m', $result, $matches);
-            return abs($matches[1]) ?? 0;
+            $this->setValidScore(abs($matches[1]) ?? 0);
+            return $this->validScore;
         }
     }
 }

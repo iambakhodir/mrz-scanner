@@ -15,6 +15,6 @@
     }
   ],
   "autoload": {
-    "psr-4": {"MRZScanner\\": "src/MRZScanner"}
+    "psr-4": {"PassportScanner\\": "src/PassportScanner"}
   }
 }
