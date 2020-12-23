@@ -1,6 +1,11 @@
 # mrz-scanner
 Passport MRZ Scanner
 
+##Install
+```bash
+composer require bakhodir/passport-scanner
+```
+
 ##INSTALL CONVERT IMAGE TO TEXT
 ###Install Tesseract
 ```bash
