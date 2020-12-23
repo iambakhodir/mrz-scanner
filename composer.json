@@ -2,6 +2,7 @@
   "name": "bakhodir/passport-scanner",
   "description": "Component Retrieve data using python PassportEye",
   "type": "library",
+  "license": "MIT",
   "keywords": ["mrz", "passport", "php", "td3"],
   "require": {
     "php": ">=7.0",
