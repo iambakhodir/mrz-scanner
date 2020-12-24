@@ -74,7 +74,7 @@ class MRZScanner
      */
     public function getCommand(): string
     {
-        return escapeshellcmd($this->command);
+        return escapeshellcmd($this->command . " " . $this->getFile() . " 2>&1");
     }
 
     /**
@@ -90,7 +90,7 @@ class MRZScanner
      */
     public function execute()
     {
-        $this->result = trim(shell_exec($this->command . " " . $this->getFile() . " 2>&1"));
+        $this->result = trim(shell_exec($this->getCommand()));
         return $this;
     }
 
