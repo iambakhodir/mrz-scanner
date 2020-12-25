@@ -1,5 +1,6 @@
 <?php
 
+
 namespace PassportScanner;
 
 
@@ -79,7 +80,7 @@ class MRZScanner
      */
     public function getCommand(): string
     {
-        return escapeshellcmd($this->command . " " . $this->getFile() . " 2>&1");
+        return escapeshellcmd($this->command . " " . $this->getFile());
     }
 
     /**
@@ -128,10 +129,8 @@ class MRZScanner
     private function extractScore()
     {
         $result = $this->getResult();
-        if (!$result)
-            return $this->getScore();
 
-        if ($this->isJson) {
+        if (is_array($result) && $this->isJson) {
             $this->setScore(array_key_exists('valid_score', $result) ? abs($result['valid_score']) : 0);
             return $this->getScore();
         } else {
