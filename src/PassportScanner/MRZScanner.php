@@ -30,6 +30,11 @@ class MRZScanner
     protected $validScore = 90;
 
     /**
+     * @var int
+     */
+    protected $score = 0;
+
+    /**
      * @param $validScore
      * @return $this
      */
@@ -91,6 +96,10 @@ class MRZScanner
     public function execute()
     {
         $this->result = trim(shell_exec($this->getCommand()));
+
+        // parse score from result
+        $this->extractScore();
+
         return $this;
     }
 
@@ -110,19 +119,30 @@ class MRZScanner
         return ($this->getScore() > $this->getValidScore());
     }
 
+    public function setScore($score)
+    {
+        $this->score = $score;
+        return $this;
+    }
+
+    private function extractScore()
+    {
+        $result = $this->getResult();
+        if ($this->isJson) {
+            $this->setScore(array_key_exists('valid_score', $result) ? abs($result['valid_score']) : 0);
+            return $this->getScore();
+        } else {
+            preg_match('/^.*?valid_score\s+([0-9]+).*?$/m', $result, $matches);
+            $this->setScore(abs($matches[1]) ?? 0);
+            return $this->getScore();
+        }
+    }
+
     /**
      * @return float|int
      */
     public function getScore()
     {
-        $result = $this->getResult();
-        if ($this->isJson) {
-            $this->setValidScore(array_key_exists('valid_score', $result) ? abs($result['valid_score']) : 0);
-            return $this->validScore;
-        } else {
-            preg_match('/^.*?valid_score\s+([0-9]+).*?$/m', $result, $matches);
-            $this->setValidScore(abs($matches[1]) ?? 0);
-            return $this->validScore;
-        }
+        return $this->score;
     }
 }
