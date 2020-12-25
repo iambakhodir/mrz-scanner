@@ -128,6 +128,9 @@ class MRZScanner
     private function extractScore()
     {
         $result = $this->getResult();
+        if (!$result)
+            return $this->getScore();
+
         if ($this->isJson) {
             $this->setScore(array_key_exists('valid_score', $result) ? abs($result['valid_score']) : 0);
             return $this->getScore();
