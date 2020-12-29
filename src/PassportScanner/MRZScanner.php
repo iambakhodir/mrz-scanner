@@ -135,7 +135,7 @@ class MRZScanner
             return $this->getScore();
         } else {
             preg_match('/^.*?valid_score\s+([0-9]+).*?$/m', $result, $matches);
-            $this->setScore(abs($matches[1]) ?? 0);
+            $this->setScore($matches[1] ? abs($matches[1]) : 0);
             return $this->getScore();
         }
     }
